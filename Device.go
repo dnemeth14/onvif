@@ -122,19 +122,19 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 	for _, j := range devices {
 		doc := etree.NewDocument()
 		if err := doc.ReadFromString(j); err != nil {
-			if debugOn {fmt.Errorf("%s", err.Error())}
+			if debugOn == 1 {fmt.Errorf("%s", err.Error())}
 			return nil
 		}
 
 		endpoints := doc.Root().FindElements("./Body/ProbeMatches/ProbeMatch/XAddrs")
 		for _, xaddr := range endpoints {
 			xaddr := strings.Split(strings.Split(xaddr.Text(), " ")[0], "/")[2]
-			if debugOn {fmt.Println(xaddr)}
+			if debugOn == 1 {fmt.Println(xaddr)}
 			c := 0
 
 			for c = 0; c < len(nvtDevices); c++ {
 				if nvtDevices[c].params.Xaddr == xaddr {
-					if debugOn {fmt.Println(nvtDevices[c].params.Xaddr, "==", xaddr)}
+					if debugOn == 1 {fmt.Println(nvtDevices[c].params.Xaddr, "==", xaddr)}
 					break
 				}
 			}
@@ -146,7 +146,7 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0]})
 
 			if err != nil {
-				if debugOn {
+				if debugOn == 1 {
 					fmt.Println("Error", xaddr)
 					fmt.Println(err)
 				}
