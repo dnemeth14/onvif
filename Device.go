@@ -116,7 +116,7 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 	/*
 		Call an ws-discovery Probe Message to Discover NVT type Devices
 	*/
-	devices := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:" + NVT.String()}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"}, debugOn)
+	devices := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:" + NVT.String()}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
 	nvtDevices := make([]Device, 0)
 
 	for _, j := range devices {
