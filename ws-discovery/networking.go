@@ -24,7 +24,7 @@ import (
 const bufSize = 8192
 
 //SendProbe to device
-func SendProbe(interfaceName string, scopes, types []string, namespaces map[string]string,  debugOn bool) []string {
+func SendProbe(interfaceName string, scopes, types []string, namespaces map[string]string, debugOn bool) []string {
 	// Creating UUID Version 4
 	uuidV4 := uuid.Must(uuid.NewV4())
 	//fmt.Printf("UUIDv4: %s\n", uuidV4)
