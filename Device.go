@@ -165,9 +165,6 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 				continue
 			}
 
-			fmt.Println("|||||||||||||||||||||||||||||")
-			fmt.Println(doc.Root())
-			fmt.Println("|||||||||||||||||||||||||||||")
 			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0]})
 
 			if err != nil {
