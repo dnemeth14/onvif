@@ -100,7 +100,7 @@ func (dev *Device) GetDeviceInfo() DeviceInfo {
 }
 
 func (dev *Device) GetDeviceInfoAsStr() string {
-	return ("Manufacturer: " + dev.info.Manufacturer + ", Model: " + dev.info.Model + ", FirmwareVersion: " + dev.info.FirmwareVersion + ", SerialNumber: " dev.info.SerialNumber + ", HardwareId: " + dev.info.HardwareId)
+	return ("Manufacturer: " + dev.info.Manufacturer + ", Model: " + dev.info.Model + ", FirmwareVersion: " + dev.info.FirmwareVersion + ", SerialNumber: " + dev.info.SerialNumber + ", HardwareId: " + dev.info.HardwareId)
 }
 
 func (dev *Device) GetDeviceParamsAsStr() string {
