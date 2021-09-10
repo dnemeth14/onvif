@@ -159,10 +159,12 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 				continue
 			}
 
+			fmt.Println("|||||||||||||||||||||||")
 			services := doc.FindElements("./Envelope/Body/GetCapabilitiesResponse/Capabilities/*/XAddr")
 			for _, j := range services {
 				fmt.Println(j.Text())
 			}
+			fmt.Println("|||||||||||||||||||||||")
 			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0]})
 
 			if err != nil {
