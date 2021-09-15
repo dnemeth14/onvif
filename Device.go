@@ -142,6 +142,9 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 			return nil
 		}
 
+		uuid := doc.Root().FindElement("./Body/ProbeMatches/ProbeMatch/EndpointReference/Address")
+		if debugOn {fmt.Println("UUID:", uuid)}
+		
 		endpoints := doc.Root().FindElements("./Body/ProbeMatches/ProbeMatch/XAddrs")
 		for _, xaddr := range endpoints {
 			xaddr := strings.Split(strings.Split(xaddr.Text(), " ")[0], "/")[2]
@@ -159,12 +162,6 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 				continue
 			}
 
-			fmt.Println("|||||||||||||||||||||||")
-			services := doc.FindElements("./Envelope/Body/GetCapabilitiesResponse/Capabilities/*/XAddr")
-			for _, j := range services {
-				fmt.Println(j.Text())
-			}
-			fmt.Println("|||||||||||||||||||||||")
 			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0]})
 
 			if err != nil {
