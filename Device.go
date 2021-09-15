@@ -143,7 +143,7 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 		}
 
 		uuid := doc.Root().FindElement("./Body/ProbeMatches/ProbeMatch/EndpointReference/Address")
-		if debugOn {fmt.Println("UUID:", uuid)}
+		if debugOn {fmt.Println("UUID:", uuid.Text())}
 		
 		endpoints := doc.Root().FindElements("./Body/ProbeMatches/ProbeMatch/XAddrs")
 		for _, xaddr := range endpoints {
