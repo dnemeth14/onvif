@@ -84,6 +84,7 @@ type Device struct {
 
 type DeviceParams struct {
 	Xaddr      string
+	UUID       string
 	Username   string
 	Password   string
 	HttpClient *http.Client
@@ -119,6 +120,10 @@ func (dev *Device) GetDeviceXaddr() string {
 	return dev.params.Xaddr
 }
 
+func (dev *Device) GetDeviceUUID() string {
+	return dev.params.UUID
+}
+
 func readResponse(resp *http.Response) string {
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -142,9 +147,6 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 			return nil
 		}
 
-		uuid := doc.Root().FindElement("./Body/ProbeMatches/ProbeMatch/EndpointReference/Address")
-		if debugOn {fmt.Println("UUID:", uuid.Text())}
-		
 		endpoints := doc.Root().FindElements("./Body/ProbeMatches/ProbeMatch/XAddrs")
 		for _, xaddr := range endpoints {
 			xaddr := strings.Split(strings.Split(xaddr.Text(), " ")[0], "/")[2]
@@ -162,7 +164,10 @@ func GetAvailableDevicesAtSpecificEthernetInterface(interfaceName string, debugO
 				continue
 			}
 
-			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0]})
+			uuid := doc.Root().FindElement("./Body/ProbeMatches/ProbeMatch/EndpointReference/Address")
+			if debugOn {fmt.Println("UUID:", strings.Split(uuid.Text(), ":")[2])}
+			
+			dev, err := NewDevice(DeviceParams{Xaddr: strings.Split(xaddr, " ")[0], UUID: strings.Split(uuid.Text(), ":")[2]})
 
 			if err != nil {
 				if debugOn {
