@@ -100,22 +100,6 @@ func (dev *Device) GetDeviceInfo() DeviceInfo {
 	return dev.info
 }
 
-func (dev *Device) GetDeviceInfoAsStr() string {
-	return ("Manufacturer: " + dev.info.Manufacturer + ", Model: " + dev.info.Model + ", FirmwareVersion: " + dev.info.FirmwareVersion + ", SerialNumber: " + dev.info.SerialNumber + ", HardwareId: " + dev.info.HardwareId)
-}
-
-func (dev *Device) GetDeviceParamsAsStr() string {
-	return ("Xaddr: " + dev.params.Xaddr + ", Username: " + dev.params.Username + ", Password: " + dev.params.Password)
-}
-
-func (dev *Device) GetEndPointsAsStr() string {
-	endpointsAsStr := ""
-	for key, value := range dev.endpoints {
-		endpointsAsStr += (key + ": " + value + "\n")
-	}
-	return endpointsAsStr
-}
-
 func (dev *Device) GetDeviceXaddr() string {
 	return dev.params.Xaddr
 }
