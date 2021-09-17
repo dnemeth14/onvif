@@ -57,26 +57,26 @@ func sendUDPMulticast(msg string, interfaceName string) []string {
 // 	}
 	group := net.IPv4(239, 255, 255, 250)
 
-	c, err := net.ListenPacket("udp4", "0.0.0.0:1024")
-	if err != nil {
-		fmt.Println(err)
-	}
+	c, _ := net.ListenPacket("udp4", "0.0.0.0:1024")
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
 	defer c.Close()
 
 	p := ipv4.NewPacketConn(c)
-	if err := p.JoinGroup(iface, &net.UDPAddr{IP: group}); err != nil {
-		fmt.Println(err)
-	}
+// 	if err := p.JoinGroup(iface, &net.UDPAddr{IP: group}); err != nil {
+// 		fmt.Println(err)
+// 	}
 
 	dst := &net.UDPAddr{IP: group, Port: 3702}
 	for _, ifi := range []*net.Interface{iface} {
-		if err := p.SetMulticastInterface(ifi); err != nil {
-			fmt.Println(err)
-		}
+// 		if err := p.SetMulticastInterface(ifi); err != nil {
+// 			fmt.Println(err)
+// 		}
 		p.SetMulticastTTL(2)
-		if _, err := p.WriteTo(data, nil, dst); err != nil {
-			fmt.Println(err)
-		}
+// 		if _, err := p.WriteTo(data, nil, dst); err != nil {
+// 			fmt.Println(err)
+// 		}
 	}
 
 	if err := p.SetReadDeadline(time.Now().Add(time.Second * 1)); err != nil {
@@ -87,9 +87,9 @@ func sendUDPMulticast(msg string, interfaceName string) []string {
 		b := make([]byte, bufSize)
 		n, _, _, err := p.ReadFrom(b)
 		if err != nil {
-			if !errors.Is(err, os.ErrDeadlineExceeded) {
-				fmt.Println(err)
-			}
+// 			if !errors.Is(err, os.ErrDeadlineExceeded) {
+// 				fmt.Println(err)
+// 			}
 			break
 		}
 		result = append(result, string(b[0:n]))
